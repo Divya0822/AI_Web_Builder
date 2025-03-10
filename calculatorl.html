@@ -34,18 +34,24 @@
             grid-template-columns: repeat(4, 1fr);
             gap: 10px;
         }
-        .buttons button {
-            padding: 15px;
-            font-size: 1em;
+        .button {
+            padding: 20px;
+            font-size: 1.2em;
             border: none;
             border-radius: 5px;
-            background-color: #007bff;
-            color: white;
             cursor: pointer;
+            background-color: #e0e0e0;
             transition: background-color 0.3s;
         }
-        .buttons button:hover {
-            background-color: #0056b3;
+        .button:hover {
+            background-color: #d0d0d0;
+        }
+        .button.operator {
+            background-color: #f9a825;
+            color: white;
+        }
+        .button.operator:hover {
+            background-color: #f57f17;
         }
     </style>
 </head>
@@ -53,30 +59,30 @@
     <div class="calculator">
         <input type="text" class="display" id="display" disabled>
         <div class="buttons">
-            <button onclick="clearDisplay()">C</button>
-            <button onclick="appendToDisplay('(')">(</button>
-            <button onclick="appendToDisplay(')')">)</button>
-            <button onclick="appendToDisplay('/')">/</button>
+            <button class="button" onclick="clearDisplay()">C</button>
+            <button class="button" onclick="appendToDisplay('(')">(</button>
+            <button class="button" onclick="appendToDisplay(')')">)</button>
+            <button class="button operator" onclick="appendToDisplay('/')">/</button>
 
-            <button onclick="appendToDisplay('7')">7</button>
-            <button onclick="appendToDisplay('8')">8</button>
-            <button onclick="appendToDisplay('9')">9</button>
-            <button onclick="appendToDisplay('*')">*</button>
+            <button class="button" onclick="appendToDisplay('7')">7</button>
+            <button class="button" onclick="appendToDisplay('8')">8</button>
+            <button class="button" onclick="appendToDisplay('9')">9</button>
+            <button class="button operator" onclick="appendToDisplay('*')">*</button>
 
-            <button onclick="appendToDisplay('4')">4</button>
-            <button onclick="appendToDisplay('5')">5</button>
-            <button onclick="appendToDisplay('6')">6</button>
-            <button onclick="appendToDisplay('-')">-</button>
+            <button class="button" onclick="appendToDisplay('4')">4</button>
+            <button class="button" onclick="appendToDisplay('5')">5</button>
+            <button class="button" onclick="appendToDisplay('6')">6</button>
+            <button class="button operator" onclick="appendToDisplay('-')">-</button>
 
-            <button onclick="appendToDisplay('1')">1</button>
-            <button onclick="appendToDisplay('2')">2</button>
-            <button onclick="appendToDisplay('3')">3</button>
-            <button onclick="appendToDisplay('+')">+</button>
+            <button class="button" onclick="appendToDisplay('1')">1</button>
+            <button class="button" onclick="appendToDisplay('2')">2</button>
+            <button class="button" onclick="appendToDisplay('3')">3</button>
+            <button class="button operator" onclick="appendToDisplay('+')">+</button>
 
-            <button onclick="appendToDisplay('0')">0</button>
-            <button onclick="appendToDisplay('.')">.</button>
-            <button onclick="calculateResult()">=</button>
-            <button onclick="appendToDisplay('**')">^</button>
+            <button class="button" onclick="appendToDisplay('0')">0</button>
+            <button class="button" onclick="appendToDisplay('.')">.</button>
+            <button class="button operator" onclick="calculate()">=</button>
+            <button class="button operator" onclick="appendToDisplay('**')">^</button>
         </div>
     </div>
 
@@ -89,7 +95,7 @@
             document.getElementById('display').value = '';
         }
 
-        function calculateResult() {
+        function calculate() {
             try {
                 const result = eval(document.getElementById('display').value);
                 document.getElementById('display').value = result;
