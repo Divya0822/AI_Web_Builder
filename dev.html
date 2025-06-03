@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPL Scoreboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .scoreboard {
+            margin-bottom: 40px;
+        }
+        .match {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .match-header {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>IPL Scoreboard</h1>
+    <div id="liveScores" class="scoreboard">
+        <h2>Live Matches</h2>
+        <!-- Live matches will be displayed here -->
+    </div>
+    <div id="pastRecords" class="scoreboard">
+        <h2>Past Records</h2>
+        <!-- Past records will be displayed here -->
+    </div>
+
+    <script>
+        const apiKey = 'YOUR_API_KEY'; // Replace with your API key
+        const liveScoresUrl = `https://api.example.com/live?apikey=${apiKey}`;
+        const pastRecordsUrl = `https://api.example.com/past?apikey=${apiKey}`;
+
+        async function fetchLiveScores() {
+            try {
+                const response = await fetch(liveScoresUrl);
+                const data = await response.json();
+                displayLiveScores(data);
+            } catch (error) {
+                console.error('Error fetching live scores:', error);
+            }
+        }
+
+        async function fetchPastRecords() {
+            try {
+                const response = await fetch(pastRecordsUrl);
+                const data = await response.json();
+                displayPastRecords(data);
+            } catch (error) {
+                console.error('Error fetching past records:', error);
+            }
+        }
+
+        function displayLiveScores(matches) {
+            const liveScoresDiv = document.getElementById('liveScores');
+            matches.forEach(match => {
+                const matchDiv = document.createElement('div');
+                matchDiv.className = 'match';
+                matchDiv.innerHTML = `
+                    <div class="match-header">${match.team1} vs ${match.team2}</div>
+                    <div>Score: ${match.score}</div>
+                    <div>Status: ${match.status}</div>
+                `;
+                liveScoresDiv.appendChild(matchDiv);
+            });
+        }
+
+        function displayPastRecords(records) {
+            const pastRecordsDiv = document.getElementById('pastRecords');
+            records.forEach(record => {
+                const recordDiv = document.createElement('div');
+                recordDiv.className = 'match';
+                recordDiv.innerHTML = `
+                    <div class="match-header">${record.team1} vs ${record.team2}</div>
+                    <div>Result: ${record.result}</div>
+                    <div>Date: ${record.date}</div>
+                `;
+                pastRecordsDiv.appendChild(recordDiv);
+            });
+        }
+
+        // Fetch data on page load
+        fetchLiveScores();
+        fetchPastRecords();
+    </script>
+</body>
+</html>
